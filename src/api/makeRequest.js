@@ -11,10 +11,24 @@ const apiMocker = new MockAdapter(apiInstance, {
 
 injectDummyEndpoints(apiMocker);
 
+/**
+ * @typedef {{
+ *    method?: "get" | "post" | "put" | "delete" | "search",
+ *    params?: any,
+ *    headers?: any,
+ *    body?: any,
+ *    axiosInstance?: typeof apiInstance
+ * }} RequestOptions
+ *
+ * @param {string} url
+ * @param {RequestOptions} options
+ * @returns {Promise<any>}
+ */
 export const makeRequest = (url, options = {}) => {
   options.method = options.method ?? "get";
   options.params = options.params ?? {};
   options.headers = options.headers ?? {};
+  options.body = options.body ?? {};
   options.axiosInstance = options.axiosInstance ?? apiInstance;
 
   return makeAxiosRequest(url, options).then((response) => response.data);
